@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        /* Simple styling for images */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .gallery img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Image Gallery</h1>
+<div class="gallery" id="image-gallery"></div>
+
+<script>
+// Fetch images from the PHP script
+function fetchImages() {
+    const folderKey = 'images_folder';  // Replace with the appropriate folder key
+
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+
+    // Set up the request: GET to 'get_images.php' with the folder key as a parameter
+    xhr.open('GET', 'get_images.php?key=' + folderKey, true);
+
+    // When the request is successful
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Parse the JSON response
+            const images = JSON.parse(xhr.responseText);
+            
+            // Get the image gallery container
+            const gallery = document.getElementById('image-gallery');
+
+            // Loop through the image filenames and create img elements
+            images.forEach(function(image) {
+                const imgElement = document.createElement('img');
+                imgElement.src = folderKey + '/' + image;  // Set the image source
+                imgElement.alt = image;  // Set the image alt text
+                gallery.appendChild(imgElement);  // Append to the gallery
+            });
+        } else {
+            console.error('Error fetching images:', xhr.statusText);
+        }
+    };
+
+    // Send the request
+    xhr.send();
+}
+
+// Call the fetchImages function when the page is loaded
+window.onload = fetchImages;
+</script>
+
+</body>
+</html>
