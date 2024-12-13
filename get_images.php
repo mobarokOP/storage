@@ -1,8 +1,7 @@
 <?php
 
 // Path to the images subdirectory
-$folderPath = __DIR__ . '/' . $_GET['key'];
-
+$folderPath = __DIR__ . '/' . $_GET['key']; // Folder name passed as the 'key' parameter
 
 // Initialize an empty array to store image filenames with extensions
 $imageFilenamesWithExtensions = array();
@@ -18,10 +17,10 @@ if (is_dir($folderPath)) {
         if ($file == '.' || $file == '..') {
             continue;
         }
-        
+
         // Create full path to the image file
         $filePath = $folderPath . '/' . $file;
-        
+
         // Check if the file is an image
         if (is_file($filePath) && getimagesize($filePath)) {
             // If it's an image, add the filename with extension to the array
