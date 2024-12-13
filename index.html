@@ -15,6 +15,7 @@
             width: 200px;
             height: auto;
             border-radius: 8px;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -26,7 +27,7 @@
 <script>
 // Fetch images from the PHP script
 function fetchImages() {
-    const folderKey = 'images_folder';  // Replace with the appropriate folder key
+    const folderKey = 'images_folder';  // Replace with the folder name you want to display images from
 
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
@@ -46,7 +47,7 @@ function fetchImages() {
             // Loop through the image filenames and create img elements
             images.forEach(function(image) {
                 const imgElement = document.createElement('img');
-                imgElement.src = folderKey + '/' + image;  // Set the image source
+                imgElement.src = folderKey + '/' + image;  // Set the image source (assuming images are inside the folder)
                 imgElement.alt = image;  // Set the image alt text
                 gallery.appendChild(imgElement);  // Append to the gallery
             });
